@@ -9,8 +9,8 @@ void mai(const char *str, ...){
 }
 
 int main(){
-    mai("%7.12s michael", "My name");
-    printf("%7.12s michael\n", "My name");
+    mai("%05d %5d michael %.4s", -35, 4455, "Saviour");
+    printf("%05d %5d michael %.4s\n", -35, 4455, "Saviour");
     return 0;
 }
 
@@ -25,7 +25,7 @@ int specifier (const char *str, va_list args){
     char *sr_val; /* strings */
     int8_t cr_val; /* char */
     char *rev;
-    int base, HASH, SIGNED, CASE;
+    int32_t base, HASH, SIGNED, CASE;
 
     UNUSED(HASH);
 

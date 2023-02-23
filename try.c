@@ -1,0 +1,20 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <float.h>
+int main(){
+    int i = 0;
+    int len = 5;
+    int s[] = {1, 2, 3, 4, 5};
+
+    int haf = len / 2; 
+    len -= 1;
+    while (i < len){
+	s[i] ^= s[len];
+	s[len] ^= s[i];
+	s[i++] ^= s[len--];
+    }
+    len = 0;
+    while (len < 5)
+	printf("%d\n", s[len++]);
+}

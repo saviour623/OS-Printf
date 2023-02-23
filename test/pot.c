@@ -1,6 +1,5 @@
 #include "main.h"
 
-/* Handle decimal/octa/hexa/binary formating */
 intmax_t int_formt(uintmax_t risv_val, int buff_inx, int alpha_case, int base, int _signed, char *buff, flag *fg){
     int8_t c;       /* stores space || zero */
     int8_t p; /* stores extra characters invoked by hash */
@@ -27,7 +26,7 @@ intmax_t int_formt(uintmax_t risv_val, int buff_inx, int alpha_case, int base, i
 	sign = 1;
 	len += 1;
     }
-    fg->width -= sign ? 1 : 0;
+
     /* length */
     tmp_val = risv_val;
     while (tmp_val){
@@ -37,19 +36,15 @@ intmax_t int_formt(uintmax_t risv_val, int buff_inx, int alpha_case, int base, i
 
     /* Assign space && plus */
     spc = 0;
-    if (fg->space || sign){
-	!(fg->plus) && !(sign) ? spc = 1, --fg->width : 0;
-	if (!(fg->neg) && sign)
-	    spc ? SWITCH_OFF(spc), fg->width++ : 0;
-	fg->neg && sign ? fg->width++ : 0;
-    }
+    fg->space && !(fg->plus) ? spc = 1, --fg->width : 0;
 
     plus = 0;
     if (fg->plus)
-	(!sign) ? plus = 1, --fg->width : 0;
+	!(sign) ? plus = 1, --fg->width : 0;
 
     /* switch off some flags */
     if (_case == 1 || _case == 2 || _case == 3){
+	fg->zero_pad && _case != 2 ? SWITCH_OFF(fg->zero_pad) : 0;
 	plus ? SWITCH_OFF(plus), ++fg->width : 0;
 	spc && _case != 2 ? SWITCH_OFF(spc), ++fg->width : 0;
     }
@@ -57,7 +52,7 @@ intmax_t int_formt(uintmax_t risv_val, int buff_inx, int alpha_case, int base, i
     /*store character for padding*/
     c = fg->zero_pad && !(fg->neg) ? '0' : ' ';
 
-    /* create space for special input from hash */
+    /* create space for special input */
     _case == 1 && fg->hash ? len += 2 : 0;
     _case == 2 && fg->hash && !fg->zero_pad ? len += 1  : 0;
     _case == 3 && fg->hash ? len += 2 : 0;

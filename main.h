@@ -30,7 +30,14 @@ typedef enum base_diff{
     binary = 2
 } base_type;
 
+typedef struct float_properties {
+    int32_t exponent;
+    double fraction;
+    double decimal;
+    double mantissa;
+} float_prop;
 
+typedef long double ldbl_t;
 #define MIN_S FL_CHAR
 #define MAX_S FL_LONG_LONG
 #define SIZE_BIT (3 + sizeof(void *) * (CHAR_BIT) / 4)
@@ -87,11 +94,12 @@ uintmax_t rev_oct_ct(char *);
 uint8_t str_len(char *);
 int str_fmt(char *, char *, int, int, int, flag *);
 
+long double flt_selec(int, int, va_list *);
 void exponent(long double, long double);
 void print_exponent(long double, long double, int, int);
 long double round_exponent(long double, int);
-void float_precision(long double, int);
+void float_precision(ldbl_t, char *, int);
 void long_double(long double, int);
 void G_float(long double, int);
-
+double floatmanipul(double, float_prop *);
 #endif /* MAIN_H */
